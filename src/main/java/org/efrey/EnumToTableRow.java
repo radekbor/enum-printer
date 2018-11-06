@@ -48,7 +48,17 @@ public class EnumToTableRow {
                 log.debug("something get wrong");
             }
         }
-        TableRow result = new TableRow(columns.toArray(new Object[columns.size()]));
+        log.debug("columns size:" + columns.size());
+        Object[] objects = convertColumns(columns);
+        return new TableRow(objects);
+    }
+
+    private Object[] convertColumns(List<Object> columns) {
+        Object[] result = new Object[columns.size()];
+        for (int i = 0; i < columns.size(); i++) {
+            log.debug("convertColumns columns:" + columns.toString());
+            result[i] = columns.get(i);
+        }
         return result;
     }
 }
