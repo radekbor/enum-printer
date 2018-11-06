@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class TableHandler {
 
 
-    public static final Collector<CharSequence, ?, String> JOINING = Collectors.joining(";");
+    public static final Collector<CharSequence, ?, String> JOINING_CELL = Collectors.joining(";");
     private final String path;
 
     public TableHandler(String path) {
@@ -20,7 +20,7 @@ public class TableHandler {
 
 
     private String cellsToRow(String[] row) {
-        return Arrays.stream(row).collect(JOINING);
+        return Arrays.stream(row).collect(JOINING_CELL);
     }
 
     public void saveTable(String name, Table table) {
@@ -34,8 +34,8 @@ public class TableHandler {
                     String[] cells = convert(row.getColumns());
                     return cellsToRow(cells);
                 })
-                .map(row -> row.concat("\n"))
-                .collect(JOINING);
+                .map(row -> row.concat(";\n"))
+                .collect(Collectors.joining());
 
         stringBuilder.append(data);
 
